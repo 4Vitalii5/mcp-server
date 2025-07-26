@@ -1,0 +1,79 @@
+type AuthorDto {
+    id: ID!
+    name: String!
+    email: String
+    biography: String
+    books: [BookInAuthorDto!]
+}
+
+type BookInAuthorDto {
+    id: ID!
+    title: String!
+}
+
+type BookDto {
+    id: ID!
+    title: String!
+    isbn: String
+    description: String
+    publicationYear: Int
+    authors: [AuthorInBookDto!]
+}
+
+type AuthorInBookDto {
+    id: ID!
+    name: String!
+}
+
+input CreateAuthorRequest {
+    name: String!
+    email: String
+    biography: String
+}
+
+input UpdateAuthorRequest {
+    name: String
+    email: String
+    biography: String
+}
+
+input CreateBookRequest {
+    title: String!
+    isbn: String
+    description: String
+    publicationYear: Int
+}
+
+input UpdateBookRequest {
+    title: String
+    isbn: String
+    description: String
+    publicationYear: Int
+}
+
+type Query {
+    authors: [AuthorDto!]!
+    author(id: ID!): AuthorDto
+    authorsByName(name: String!): [AuthorDto!]!
+
+    books: [BookDto!]!
+    book(id: ID!): BookDto
+    booksByTitle(title: String!): [BookDto!]!
+    booksByYear(year: Int!): [BookDto!]!
+    booksByAuthor(authorId: ID!): [BookDto!]!
+}
+
+type Mutation {
+    createAuthor(request: CreateAuthorRequest!): AuthorDto!
+    updateAuthor(id: ID!, request: UpdateAuthorRequest!): AuthorDto!
+    deleteAuthor(id: ID!): Boolean!
+
+    createBook(request: CreateBookRequest!): BookDto!
+    updateBook(id: ID!, request: UpdateBookRequest!): BookDto!
+    deleteBook(id: ID!): Boolean!
+
+    addBookToAuthor(authorId: ID!, bookId: ID!): AuthorDto!
+    removeBookFromAuthor(authorId: ID!, bookId: ID!): AuthorDto!
+    addAuthorToBook(bookId: ID!, authorId: ID!): BookDto!
+    removeAuthorFromBook(bookId: ID!, authorId: ID!): BookDto!
+}
