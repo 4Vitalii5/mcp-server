@@ -107,7 +107,7 @@ src/main/java/com/example/mcp/
 ## Запуск проекту
 
 ### Вимоги
-- Java 17+
+- Java 21+
 - Maven 3.6+
 
 ### Інструкції
